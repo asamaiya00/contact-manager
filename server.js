@@ -9,7 +9,7 @@ const connectDB = require('./config/db');
 
 connectDB();
 
-app.use(express.json({ extended: false }));
+app.use(express.json({ extended: false })); 
 
 app.get('/', (req, res) => {
   res.json({ msg: 'Contact Keeper API' });
