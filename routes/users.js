@@ -1,10 +1,11 @@
 const express = require('express');
-const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+
+const User = require('../models/User');
 
 // api/users
 // Public
@@ -21,7 +22,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(404).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
     const { name, email, password } = req.body;
 
