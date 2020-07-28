@@ -27,7 +27,7 @@ export default (state, { type, payload }) => {
         ...state,
         contacts: [
           ...state.contacts.filter((contact) => {
-            return contact.id != payload;
+            return contact.id !== payload;
           }),
         ],
       };
@@ -42,6 +42,20 @@ export default (state, { type, payload }) => {
         current: null,
       };
 
+    case FILTER_CONTACTS:
+      return {
+        ...state,
+        filtered: state.contacts.filter((contact) => {
+          const regex = new RegExp(`${payload}`, 'gi');
+          return contact.name.match(regex) || contact.email.match(regex);
+        }),
+      };
+
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: null,
+      };
     default:
       return state;
   }
