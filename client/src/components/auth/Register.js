@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/authContext';
 
 const Register = () => {
   const { setAlert } = useContext(AlertContext);
+  const { register } = useContext(AuthContext);
 
   const [user, setUser] = useState({
     name: '',
@@ -21,7 +23,11 @@ const Register = () => {
     else if (password !== password2) {
       setAlert('Password do not match', 'danger');
     } else {
-      console.log('Register Submit');
+      register({
+        name,
+        email,
+        password,
+      });
     }
   };
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const app = express();
 
 const usersRoute = require('./routes/users');
@@ -18,6 +19,11 @@ app.get('/', (req, res) => {
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/contacts', contactsRoute);
+
+app.use(cors({
+  origin: 'http://localhost:5000',
+  credentials: true
+}))
 
 const PORT = process.env.PORT || 5000;
 
