@@ -29,27 +29,22 @@ const AuthState = (props) => {
   const loadUser = () => console.log('load user');
 
   // register user
-  const register = async (formData) => {
+  const register = (formData) => {
     const config = {
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
     };
-    try {
-      const res = await axios.post('http://localhost:5000/api/users', formData, config);
-      console.log(res);
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data,
+
+    axios
+      .post('/api/users', formData, config)
+      .then((res) => {
+        dispatch({ type: REGISTER_SUCCESS, payload: res.data }); // res.data will be the token
+      })
+
+      .catch((err) => {
+        dispatch({ type: REGISTER_FAIL, payload: err.response.data.msg });
       });
-    } catch (err) {
-      console.log(err)
-      dispatch({
-        type: REGISTER_FAIL,
-        payload: err.response.data.msg,
-      });
-    }
   };
   // login user
   const login = () => console.log('login');
