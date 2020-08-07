@@ -59,13 +59,29 @@ const AuthState = (props) => {
       });
   };
   // login user
-  const login = () => console.log('login');
+  const login = async (formData) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
+    axios
+      .post('/api/auth', formData, config)
+      .then((res) => {
+        dispatch({ type: LOGIN_SUCCESS, payload: res.data }); // res.data will be the token
+        loadUser();
+      })
+
+      .catch((err) => {
+        dispatch({ type: LOGIN_FAIL, payload: err.response.data.msg });
+      });
+  };
   //   logout
-  const logout = () => console.log('logout user');
+  const logout = () => dispatch({ type: LOGOUT });
 
   // clear error
-  const clearErrors = () => console.log('clear errors');
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
   return (
     <AuthContext.Provider
