@@ -14,7 +14,7 @@ router.get('/', auth, async (req, res) => {
       date: -1,
     });
 
-    return res.json({ contacts });
+    return res.json( contacts );
   } catch (err) {
     console.error(err.message);
     return res.status(500).send('Server Error');
@@ -45,7 +45,7 @@ router.post(
 
       const contact = await newContact.save();
 
-      return res.json({ contact });
+      return res.json(contact);
     } catch (err) {
       console.error(err.message);
       return res.status(500).send('Server Error');

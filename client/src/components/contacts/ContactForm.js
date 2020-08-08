@@ -50,6 +50,7 @@ const ContactForm = () => {
         {current ? 'EDIT CONTACT' : 'ADD CONTACT'}
       </h2>
       <input
+        required
         type="text"
         placeholder="Name"
         name="name"
@@ -57,6 +58,7 @@ const ContactForm = () => {
         onChange={onChange}
       />
       <input
+        required
         type="email"
         placeholder="Email"
         name="email"
@@ -64,6 +66,7 @@ const ContactForm = () => {
         onChange={onChange}
       />
       <input
+        required
         type="text"
         placeholder="Phone"
         name="phone"
