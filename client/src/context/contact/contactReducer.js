@@ -29,18 +29,17 @@ export default (state, { type, payload }) => {
       return {
         ...state,
         contacts: state.contacts.map((contact) =>
-          contact.id === payload.id ? payload : contact
+          contact._id === payload._id ? payload : contact
         ),
         loading: false,
       };
     case DELETE_CONTACT:
       return {
         ...state,
-        contacts: [
-          ...state.contacts.filter((contact) => {
-            return contact._id !== payload;
-          }),
-        ],
+        contacts: state.contacts.filter((contact) => {
+          return contact._id !== payload;
+        }),
+
         loading: false,
       };
     case CLEAR_CONTACTS:

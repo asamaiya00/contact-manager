@@ -14,7 +14,7 @@ router.get('/', auth, async (req, res) => {
       date: -1,
     });
 
-    return res.json( contacts );
+    return res.json(contacts);
   } catch (err) {
     console.error(err.message);
     return res.status(500).send('Server Error');
@@ -55,14 +55,39 @@ router.post(
 
 // api/contacts/:id
 // Private
-router.put('/:id', (req, res) => {
-  res.send('Update contact');
+router.put('/:id', auth, async (req, res) => {
+  const { name, email, phone, type } = req.body;
+  const updated = {};
+  if (name) updated.name = name;
+  if (email) updated.email = email;
+  if (phone) updated.phone = phone;
+  if (type) updated.type = type;
+
+  try {
+    let contact = await Contact.findById(req.params.id);
+    if (!contact) return res.status(404).json({ msg: 'Contact not found' });
+
+    await Contact.findByIdAndUpdate(req.params.id, { $set: updated });
+    return res.json({ msg: `${updated.name} Updated` });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send('Server Error');
+  }
 });
 
 // api/contacts/:id
 // Private
-router.delete('/:id', (req, res) => {
-  res.send('Delete contact');
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    let contact = await Contact.findById(req.params.id);
+    if (!contact) return res.status(404).json({ msg: 'Contact not found' });
+
+    await Contact.findByIdAndDelete(req.params.id);
+    return res.json({ msg: `${contact.name} Deleted` });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send('Server Error');
+  }
 });
 
 module.exports = router;

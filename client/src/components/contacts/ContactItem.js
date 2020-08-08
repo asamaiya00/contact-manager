@@ -6,10 +6,10 @@ const ContactItem = ({ contact }) => {
 
   const { deleteContact, setCurrent, clearCurrent } = contactContext;
 
-  const { id, name, phone, email, type } = contact;
+  const { _id, name, phone, email, type } = contact;
 
   const onDelete = () => {
-    deleteContact(id);
+    deleteContact(_id);
     clearCurrent();
   };
   return (
@@ -44,7 +44,7 @@ const ContactItem = ({ contact }) => {
           onClick={() => setCurrent(contact)}
           className="btn btn-dark btn-sm"
         >
-          Edit
+          Edit 
         </button>
         <button onClick={onDelete} className="btn btn-danger  btn-sm">
           Delete
